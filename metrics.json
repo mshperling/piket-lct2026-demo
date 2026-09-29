@@ -188,7 +188,61 @@
     "group_days": 62140,
     "groups": 26,
     "check_2026_h1_incidents": 22,
-    "status": "Imported. New model evaluation pending. Published metrics unchanged.",
+    "status": "Imported. TabICLv2 reference completed without improvement; classical full-history ensemble evaluation pending. Published model unchanged.",
     "source": "data/reconstructed_2019_2026/source_manifest.json"
+  },
+  "foundation_reference": {
+    "source": "reports/20260929/foundation_reference/report.json",
+    "selected": "tabicl_short50",
+    "blend": {
+      "tabicl_mean": 0.5,
+      "published_eight_model_mean": 0.5
+    },
+    "development": {
+      "tp": 15,
+      "fp": 17,
+      "fn": 18,
+      "alerts": 32,
+      "incidents": 33,
+      "precision": 0.46875,
+      "recall": 0.45454545454545453,
+      "f05": 0.46583850931677007,
+      "lead_median_days": 6.647881944444445,
+      "f1": 0.4615384615384615
+    },
+    "check": {
+      "tp": 9,
+      "fp": 8,
+      "fn": 13,
+      "alerts": 17,
+      "incidents": 22,
+      "precision": 0.5294117647058824,
+      "recall": 0.4090909090909091,
+      "f05": 0.5,
+      "lead_median_days": 7.392384259259259,
+      "f1": 0.46153846153846156
+    },
+    "published_reference": {
+      "tp": 9,
+      "fp": 7,
+      "fn": 13,
+      "alerts": 16,
+      "incidents": 22,
+      "precision": 0.5625,
+      "recall": 0.4090909090909091,
+      "f05": 0.5232558139534883,
+      "lead_median_days": 7.392384259259259,
+      "f1": 0.47368421052631576
+    },
+    "independent_test": false,
+    "promoted": false,
+    "feature_selection": {
+      "candidate_features": 362,
+      "selected_features": 64,
+      "past_only": true
+    },
+    "contexts": 2,
+    "rows_per_context": 3072,
+    "internal_estimators_per_context": 4
   }
 }
