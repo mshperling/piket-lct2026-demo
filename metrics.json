@@ -1,0 +1,194 @@
+{
+  "evaluation_period": [
+    "2026-01-01",
+    "2026-07-01"
+  ],
+  "independent_test": false,
+  "unit": "one-to-one matched alerts and diagnostic incidents",
+  "incidents": 22,
+  "training_history": "2024-2026",
+  "models": {
+    "legacy": {
+      "tp": 9,
+      "fp": 12,
+      "fn": 13,
+      "alerts": 21,
+      "incidents": 22,
+      "precision": 0.42857142857142855,
+      "recall": 0.4090909090909091,
+      "f05": 0.4245283018867924,
+      "lead_median_days": 7.4441087962962955,
+      "f1": 0.4186046511627907
+    },
+    "mean_8": {
+      "tp": 9,
+      "fp": 7,
+      "fn": 13,
+      "alerts": 16,
+      "incidents": 22,
+      "precision": 0.5625,
+      "recall": 0.4090909090909091,
+      "f05": 0.5232558139534883,
+      "lead_median_days": 7.392384259259259,
+      "f1": 0.47368421052631576
+    },
+    "mean_18": {
+      "tp": 11,
+      "fp": 13,
+      "fn": 11,
+      "alerts": 24,
+      "incidents": 22,
+      "precision": 0.4583333333333333,
+      "recall": 0.5,
+      "f05": 0.46610169491525416,
+      "lead_median_days": 7.392384259259259,
+      "f1": 0.4782608695652174
+    },
+    "renewal_policy": {
+      "tp": 10,
+      "fp": 8,
+      "fn": 12,
+      "alerts": 18,
+      "incidents": 22,
+      "precision": 0.5555555555555556,
+      "recall": 0.45454545454545453,
+      "f05": 0.5319148936170213,
+      "lead_median_days": 10.383478009259258,
+      "f1": 0.5
+    }
+  },
+  "sources": [
+    "reports/20260929/temporal_stack/report.json",
+    "reports/20260929/renewal_ensemble/report.json",
+    "reports/20260929/renewal_policy/report.json"
+  ],
+  "browser_inference": {
+    "version": "piket-eight-2026-06",
+    "training_end": "2026-05-16",
+    "minimum_input_date": "2026-06-01",
+    "base_models": 8,
+    "features": 178,
+    "csv_columns": 179,
+    "compute_location": "browser",
+    "csv_uploaded_to_server": false,
+    "parity": {
+      "rows": 783,
+      "base_models": 8,
+      "max_absolute_error": 3.885780586188048e-16,
+      "tolerance": 1e-10,
+      "edge_cases": [
+        "unknown group",
+        "all numeric missing",
+        "all numeric zero"
+      ],
+      "models": [
+        {
+          "name": "legacy",
+          "max_absolute_error": 5.551115123125783e-17
+        },
+        {
+          "name": "lgb_base",
+          "max_absolute_error": 5.551115123125783e-17
+        },
+        {
+          "name": "lgb_full",
+          "max_absolute_error": 1.1102230246251565e-16
+        },
+        {
+          "name": "lgb_recent",
+          "max_absolute_error": 1.1102230246251565e-16
+        },
+        {
+          "name": "lgb_novel",
+          "max_absolute_error": 1.1102230246251565e-16
+        },
+        {
+          "name": "catboost",
+          "max_absolute_error": 1.6653345369377348e-16
+        },
+        {
+          "name": "extra_trees",
+          "max_absolute_error": 1.1102230246251565e-16
+        },
+        {
+          "name": "logistic",
+          "max_absolute_error": 3.885780586188048e-16
+        }
+      ],
+      "status": "passed"
+    },
+    "accuracy_scope": "All event metrics above refer to monthly 2026 H1 retrospective replay, not a separate test of the fixed June model."
+  },
+  "research_search": {
+    "base_classifiers": 22,
+    "interval_regressors": 3,
+    "maximum_features": 362,
+    "published_features": 178,
+    "published_base_models": 8
+  },
+  "additional_experiments": {
+    "analog_benchmark": {
+      "metrics": {
+        "tp": 9,
+        "fp": 8,
+        "fn": 13,
+        "alerts": 17,
+        "incidents": 22,
+        "precision": 0.5294117647058824,
+        "recall": 0.4090909090909091,
+        "f05": 0.5,
+        "lead_median_days": 9.583865740740741,
+        "f1": 0.46153846153846156
+      },
+      "source": "reports/20260929/analog_benchmark/report.json",
+      "independent_test": false,
+      "promoted": false
+    },
+    "event_ensemble_v2": {
+      "metrics": {
+        "tp": 10,
+        "fp": 14,
+        "fn": 12,
+        "alerts": 24,
+        "incidents": 22,
+        "precision": 0.4166666666666667,
+        "recall": 0.45454545454545453,
+        "f05": 0.42372881355932207,
+        "lead_median_days": 7.470115740740741,
+        "f1": 0.43478260869565216
+      },
+      "source": "reports/20260929/event_ensemble_v2/report.json",
+      "independent_test": false,
+      "promoted": false
+    },
+    "renewal_survival_v2": {
+      "metrics": {
+        "tp": 8,
+        "fp": 16,
+        "fn": 14,
+        "alerts": 24,
+        "incidents": 22,
+        "precision": 0.3333333333333333,
+        "recall": 0.36363636363636365,
+        "f05": 0.33898305084745767,
+        "lead_median_days": 8.897586805555555,
+        "f1": 0.34782608695652173
+      },
+      "source": "reports/20260929/renewal_survival_v2/report.json",
+      "independent_test": false,
+      "promoted": false
+    }
+  },
+  "full_history_research": {
+    "period": "2019-2026",
+    "raw_rows": 313546017,
+    "discrete_rows": 88325751,
+    "debounced_episodes_all_families": 215542,
+    "smoke_group_incidents": 176,
+    "group_days": 62140,
+    "groups": 26,
+    "check_2026_h1_incidents": 22,
+    "status": "Imported. New model evaluation pending. Published metrics unchanged.",
+    "source": "data/reconstructed_2019_2026/source_manifest.json"
+  }
+}

@@ -8,6 +8,7 @@
     "PIKET_LCT2026.pdf",
     "PIKET_LCT2026.pptx",
     "PITCH.md",
+    "README.md",
     "app/demo.js",
     "app/evaluation.json",
     "app/index.html",
@@ -17,7 +18,9 @@
     "app/workspace.css",
     "build-manifest.json",
     "collector.png",
+    "documentation.css",
     "documentation.html",
+    "documentation.js",
     "forecast/forecast.css",
     "forecast/forecast.js",
     "forecast/index.html",
@@ -29,6 +32,7 @@
     "inference/parity.json",
     "inference/schema.json",
     "inference/template.csv",
-    "landing.css"
+    "landing.css",
+    "metrics.json"
   ]
 }

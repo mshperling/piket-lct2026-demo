@@ -78,7 +78,7 @@ async function acceptFile(file) {
   if (!file || $('csv-file').disabled) return;
   $('results').hidden = true; result = null;
   if (!/\.csv$/i.test(file.name)) { showError('Нужен CSV с подготовленными признаками. Скачайте шаблон ниже.'); return; }
-  if (file.size > 15 * 1024 * 1024) { showError('Файл больше 15 МБ. Разделите таблицу на меньшие части.'); return; }
+  if (file.size > 15000000) { showError('Файл больше 15 МБ. Разделите таблицу на меньшие части.'); return; }
   await calculate(await file.text(), file.name);
 }
 $('csv-file').addEventListener('change', event => acceptFile(event.target.files[0]));
