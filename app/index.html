@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./piket.css">
-</head>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="./workspace.css"></head>
 <body>
 <a class="skip" href="#main">К содержанию</a>
 <aside class="sidebar">
@@ -19,24 +19,24 @@
   <nav role="tablist" aria-label="Разделы" aria-orientation="vertical">
     <button role="tab" id="tab-overview" aria-selected="true" aria-controls="view-overview"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Обзор<span class="nav-count" id="nav-count">·</span></button>
     <button role="tab" id="tab-wo" aria-selected="false" aria-controls="view-wo"><svg viewBox="0 0 24 24"><path d="M8 4H5v17h14V4h-3M9 3h6v4H9zM8 12h8M8 16h5"/></svg>Заявки<span class="nav-count" id="nav-orders">·</span></button>
-    <button role="tab" id="tab-journal" aria-selected="false" aria-controls="view-journal"><svg viewBox="0 0 24 24"><path d="M4 5v5h5M4 10a8 8 0 1 1 1 8M12 8v5l3 2"/></svg>Журнал прогнозов</button>
-    <button role="tab" id="tab-quality" aria-selected="false" aria-controls="view-quality"><svg viewBox="0 0 24 24"><path d="M4 20V4m0 16h16M8 15l4-5 4 2 4-8"/></svg>Качество модели</button>
+    <button role="tab" id="tab-journal" aria-selected="false" aria-controls="view-journal"><svg viewBox="0 0 24 24"><path d="M4 5v5h5M4 10a8 8 0 1 1 1 8M12 8v5l3 2"/></svg>История</button>
+    <button role="tab" id="tab-quality" aria-selected="false" aria-controls="view-quality"><svg viewBox="0 0 24 24"><path d="M4 20V4m0 16h16M8 15l4-5 4 2 4-8"/></svg>Модель</button>
   </nav>
   <div class="sidebar-note"><span class="eyebrow">ПРИНЦИП РАБОТЫ</span><p>Система подсказывает.<br>Решение за человеком.</p><span>Прогноз помогает выбрать, что проверить в первую очередь.</span></div>
   <div class="profile"><span class="avatar">ДС</span><div><b>Рабочее место ОДС</b><small id="session-label">Диспетчерская служба</small></div><button class="icon-button" id="account-button" aria-label="Войти в систему" title="Войти в систему">↗</button></div>
 </aside>
 <div class="app-shell">
 <header class="top"><div class="wrap"><div class="breadcrumb">Рабочее место <span>/</span> <b id="page-name">Обзор</b></div><div class="header-right"><span class="connection" id="connection">Подключение</span><button class="btn ghost sm" id="help-button">Как это работает <span aria-hidden="true">↗</span></button></div></div></header>
-<div class="demo-banner" id="demo-banner" hidden><span class="demo-full"><b>Исторический срез</b> · Архивные данные на 2026-03-29. Решения сохраняются в этом браузере.</span><span class="demo-short">Архив · 2026-03-29</span><a href="../">О проекте ↗</a></div>
+<div class="demo-banner" id="demo-banner" hidden><span class="demo-full"><b>Исторический срез</b> · 2026-03-29 · решения в этом браузере</span><span class="demo-short">Срез 2026-03-29 · решения в браузере</span><a href="../">О проекте ↗</a></div>
 <div class="archive" id="archive" hidden><div class="wrap"><b>Архив</b><span id="archive-text"></span><button class="btn ghost sm" type="button" onclick="toLatest()">К актуальному снимку</button></div></div>
 
 <main id="main" class="wrap">
   <div id="view-overview" role="tabpanel" aria-labelledby="tab-overview">
-    <div class="page-heading"><div><div class="eyebrow">ПРЕВЕНТИВНОЕ ОБСЛУЖИВАНИЕ · СМВУ</div><h1>Держим ситуацию под контролем<span class="heading-dot">.</span></h1><p>Приоритетные группы, основания и заявки на превентивную проверку.</p></div></div>
+    <div class="page-heading"><div><div class="eyebrow">РАБОЧЕЕ МЕСТО / СМВУ</div><h1>Объекты<span class="heading-dot">.</span></h1><p>Приоритетные группы, основания и заявки на превентивную проверку.</p></div></div>
     <div class="workspace-toolbar"><form class="ctl" id="forecast-form"><label for="date">Срез данных</label><input id="date" type="date" name="date" required><button class="btn ghost" type="submit" aria-label="Обновить прогноз">Обновить <span aria-hidden="true">↻</span></button><details class="params"><summary>Настроить прогноз <span aria-hidden="true">⌄</span></summary><div class="body"><label>Что прогнозируем <select id="model" name="model"></select></label><div class="context"><div class="wrap" id="ctx"><span class="muted">Загружаем параметры модели…</span></div></div>
 <p class="small muted">Модель определяет тип события и порог, при котором потребуется проверка.</p></div></details></form><span class="small muted" id="snapshot-label">Загружаем снимок</span></div>
     <div class="counts summary-grid" id="counts" aria-label="Сводка по группам"></div>
-    <details class="route-disclosure"><summary><h2>Очередь внимания</h2><span>Пульс объектов</span></summary><section class="route-overview" aria-labelledby="route-title"><div class="route-intro"><span class="eyebrow">ПУЛЬС ОБЪЕКТОВ</span><h2 id="route-title">Вся очередь.<br>Одним взглядом.</h2><p>Выберите группу, чтобы перейти к проверке.</p></div><div class="route-content"><div id="network" class="network"></div><div class="route-legend"><span><i class="dot high"></i>Проверить в первую очередь</span><span><i class="dot medium"></i>Наблюдать</span><span><i class="dot low"></i>Ниже порога</span><span>Схема групп, не карта</span></div></div></section></details>
+    <details class="route-disclosure"><summary><h2>Приоритеты</h2><span>Пульс объектов</span></summary><section class="route-overview" aria-labelledby="route-title"><div class="route-intro"><span class="eyebrow">ПУЛЬС ОБЪЕКТОВ</span><h2 id="route-title">Вся очередь.<br>Одним взглядом.</h2><p>Выберите группу, чтобы перейти к проверке.</p></div><div class="route-content"><div id="network" class="network"></div><div class="route-legend"><span><i class="dot high"></i>Проверить в первую очередь</span><span><i class="dot medium"></i>Наблюдать</span><span><i class="dot low"></i>Ниже порога</span><span>Схема групп, не карта</span></div></div></section></details>
 
     <div class="split mobile-list" id="ov">
       <div class="queue-wrap">
@@ -59,7 +59,7 @@
   </div>
 
   <div id="view-journal" role="tabpanel" aria-labelledby="tab-journal" hidden>
-    <div class="head"><h1>Журнал прогнозов</h1><div class="counts" id="j-counts"></div></div>
+    <div class="head"><h1>История</h1><div class="counts" id="j-counts"></div></div>
     <p class="small muted" style="margin:0 0 var(--s4);max-width:80ch">В каждой строке показаны прогноз, по которому была сформирована заявка, и его фактический исход по окну. Показаны сохранённые результаты исторических прогнозов.</p>
     <table><thead><tr><th>Дата прогноза</th><th>Группа</th><th class="n">Балл</th><th>Исход в окне</th><th>Решение диспетчера</th></tr></thead><tbody id="journal"></tbody></table>
   </div>

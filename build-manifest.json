@@ -14,6 +14,7 @@
     "app/piket.css",
     "app/piket.js",
     "app/replay-data.json",
+    "app/workspace.css",
     "build-manifest.json",
     "collector.png",
     "documentation.html",
