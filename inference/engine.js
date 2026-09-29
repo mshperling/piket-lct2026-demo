@@ -36,7 +36,7 @@
         return borders.reduce((n, border) => n + (x > border ? 1 : 0), 0);
       });
       const key = model.projection_indices.map(i => bins[i]).join(',');
-      const ctr = model.ctr_tables[row.grp] || model.ctr_tables.__UNKNOWN__;
+      const ctr = Object.hasOwn(model.ctr_tables, row.grp) ? model.ctr_tables[row.grp] : model.ctr_tables.__UNKNOWN__;
       bins.push(...ctr[key]);
       let split = 0, offset = 0, sum = 0;
       for (const depth of model.tree_depth) {
