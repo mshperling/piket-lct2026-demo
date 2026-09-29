@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Пикет · очередь проверок</title>
+<meta name="description" content="Рабочий лист диспетчера ОДС Москоллектора: прогноз групповых сбоев датчиков СМВУ, локализация по пикетам, заявки на превентивную проверку, журнал прогнозов и качество модели.">
+<meta name="theme-color" content="#F2F1ED">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./piket.css">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<aside class="sidebar">
+  <a class="brand" href="../" aria-label="Пикет, главная"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M7 26V8h18v18M7 17h18M16 8v18"/><circle cx="16" cy="17" r="3"/></svg></span><span><b>пикет</b><small>Видеть раньше. Действовать точнее.</small></span></a>
+  <div class="workspace-label">МОСКОЛЛЕКТОР <span>ОДС</span></div>
+  <nav role="tablist" aria-label="Разделы" aria-orientation="vertical">
+    <button role="tab" id="tab-overview" aria-selected="true" aria-controls="view-overview"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Обзор<span class="nav-count" id="nav-count">·</span></button>
+    <button role="tab" id="tab-wo" aria-selected="false" aria-controls="view-wo"><svg viewBox="0 0 24 24"><path d="M8 4H5v17h14V4h-3M9 3h6v4H9zM8 12h8M8 16h5"/></svg>Заявки<span class="nav-count" id="nav-orders">·</span></button>
+    <button role="tab" id="tab-journal" aria-selected="false" aria-controls="view-journal"><svg viewBox="0 0 24 24"><path d="M4 5v5h5M4 10a8 8 0 1 1 1 8M12 8v5l3 2"/></svg>Журнал прогнозов</button>
+    <button role="tab" id="tab-quality" aria-selected="false" aria-controls="view-quality"><svg viewBox="0 0 24 24"><path d="M4 20V4m0 16h16M8 15l4-5 4 2 4-8"/></svg>Качество модели</button>
+  </nav>
+  <div class="sidebar-note"><span class="eyebrow">ПРИНЦИП РАБОТЫ</span><p>Система подсказывает.<br>Решение за человеком.</p><span>Прогноз помогает выбрать, что проверить в первую очередь.</span></div>
+  <div class="profile"><span class="avatar">ДС</span><div><b>Рабочее место ОДС</b><small id="session-label">Диспетчерская служба</small></div><button class="icon-button" id="account-button" aria-label="Войти в систему" title="Войти в систему">↗</button></div>
+</aside>
+<div class="app-shell">
+<header class="top"><div class="wrap"><div class="breadcrumb">Рабочее место <span>/</span> <b id="page-name">Обзор</b></div><div class="header-right"><span class="connection" id="connection">Подключение</span><button class="btn ghost sm" id="help-button">Как это работает <span aria-hidden="true">↗</span></button></div></div></header>
+<div class="demo-banner" id="demo-banner" hidden><span class="demo-full"><b>Исторический срез</b> · Архивные данные на 2026-03-29. Решения сохраняются в этом браузере.</span><span class="demo-short">Архив · 2026-03-29</span><a href="../">О проекте ↗</a></div>
+<div class="archive" id="archive" hidden><div class="wrap"><b>Архив</b><span id="archive-text"></span><button class="btn ghost sm" type="button" onclick="toLatest()">К актуальному снимку</button></div></div>
+
+<main id="main" class="wrap">
+  <div id="view-overview" role="tabpanel" aria-labelledby="tab-overview">
+    <div class="page-heading"><div><div class="eyebrow">ПРЕВЕНТИВНОЕ ОБСЛУЖИВАНИЕ · СМВУ</div><h1>Держим ситуацию под контролем<span class="heading-dot">.</span></h1><p>Приоритетные группы, основания и заявки на превентивную проверку.</p></div></div>
+    <div class="workspace-toolbar"><form class="ctl" id="forecast-form"><label for="date">Срез данных</label><input id="date" type="date" name="date" required><button class="btn ghost" type="submit" aria-label="Обновить прогноз">Обновить <span aria-hidden="true">↻</span></button><details class="params"><summary>Настроить прогноз <span aria-hidden="true">⌄</span></summary><div class="body"><label>Что прогнозируем <select id="model" name="model"></select></label><div class="context"><div class="wrap" id="ctx"><span class="muted">Загружаем параметры модели…</span></div></div>
+<p class="small muted">Модель определяет тип события и порог, при котором потребуется проверка.</p></div></details></form><span class="small muted" id="snapshot-label">Загружаем снимок</span></div>
+    <div class="counts summary-grid" id="counts" aria-label="Сводка по группам"></div>
+    <details class="route-disclosure"><summary><h2>Очередь внимания</h2><span>Пульс объектов</span></summary><section class="route-overview" aria-labelledby="route-title"><div class="route-intro"><span class="eyebrow">ПУЛЬС ОБЪЕКТОВ</span><h2 id="route-title">Вся очередь.<br>Одним взглядом.</h2><p>Выберите группу, чтобы перейти к проверке.</p></div><div class="route-content"><div id="network" class="network"></div><div class="route-legend"><span><i class="dot high"></i>Проверить в первую очередь</span><span><i class="dot medium"></i>Наблюдать</span><span><i class="dot low"></i>Ниже порога</span><span>Схема групп, не карта</span></div></div></section></details>
+
+    <div class="split mobile-list" id="ov">
+      <div class="queue-wrap">
+        <div class="tools"><div class="seg" role="group" aria-label="Уровень риска"><button type="button" aria-pressed="true" data-f="all">Все</button><button type="button" aria-pressed="false" data-f="high">Высокий</button><button type="button" aria-pressed="false" data-f="medium">Средний</button></div>
+          <input type="search" id="q" placeholder="Найти группу или объект…" aria-label="Поиск по группе или объекту"></div>
+        <div class="queue" id="queue" role="listbox" aria-label="Очередь групп по приоритету"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
+        <p class="queue-hint small muted" style="margin-top:var(--s3)">Порядок: уровень риска, затем балл модели. Полоса: километровые участки коллектора по пикетам, тон = балл участковой модели, не балл группы. Пунктир: без привязки к пикетам.</p>
+      </div>
+      <div class="card-wrap"><button class="btn ghost sm back" type="button" onclick="backToQueue()">← Очередь</button><div class="card" id="card"><p class="empty">Выберите группу в очереди. Здесь появится разбор: основание, участки и датчики для проверки, история балла.</p></div></div>
+    </div>
+  </div>
+
+  <div id="view-wo" role="tabpanel" aria-labelledby="tab-wo" hidden>
+    <div class="head"><h1>Заявки на проверку</h1><div class="counts" id="wo-counts"></div></div>
+    <p class="small muted" style="margin:0 0 var(--s4);max-width:80ch">Черновики подготовлены по сохранённому прогнозу и рабочему порогу модели. Диспетчер подтверждает проверку, оставляет под наблюдением или отклоняет. Решения сохраняются локально в этом браузере. Отправка бригаде в публичной версии не выполняется.</p>
+    <div class="split mobile-list" id="wo">
+      <div class="queue-wrap"><div class="tools"><div class="seg" role="group" aria-label="Статус заявки" id="wo-filter"><button type="button" aria-pressed="true" data-f="all">Все</button><button type="button" aria-pressed="false" data-f="draft">Черновики</button><button type="button" aria-pressed="false" data-f="decided">С решением</button></div></div><div class="queue wo-list" id="wo-list"></div></div>
+      <div class="card-wrap"><button class="btn ghost sm back" type="button" onclick="backToQueue('wo')">← Заявки</button><div class="card wo-detail" id="wo-detail"><p class="empty">Выберите заявку.</p></div></div>
+    </div>
+  </div>
+
+  <div id="view-journal" role="tabpanel" aria-labelledby="tab-journal" hidden>
+    <div class="head"><h1>Журнал прогнозов</h1><div class="counts" id="j-counts"></div></div>
+    <p class="small muted" style="margin:0 0 var(--s4);max-width:80ch">В каждой строке показаны прогноз, по которому была сформирована заявка, и его фактический исход по окну. Показаны сохранённые результаты исторических прогнозов.</p>
+    <table><thead><tr><th>Дата прогноза</th><th>Группа</th><th class="n">Балл</th><th>Исход в окне</th><th>Решение диспетчера</th></tr></thead><tbody id="journal"></tbody></table>
+  </div>
+
+  <div id="view-quality" role="tabpanel" aria-labelledby="tab-quality" hidden><div id="quality"><div class="skeleton"></div></div></div>
+</main>
+</div><footer><div class="wrap"><span>Москоллектор · СМВУ · поддержка решений ОДС</span><span>Прогноз диагностических событий, не заключение о поломке оборудования</span></div></footer>
+<dialog id="help-dialog"><form method="dialog"><button class="icon-button close-dialog" aria-label="Закрыть">×</button></form><span class="eyebrow">ПИКЕТ · КРАТКОЕ РУКОВОДСТВО</span><h2>От сигнала к действию</h2><ol class="help-steps"><li><b>Выберите приоритетную группу</b><p>Очередь отсортирована по уровню, затем по баллу модели. Балл не является вероятностью поломки.</p></li><li><b>Посмотрите основание</b><p>История событий, участки и датчики помогают спланировать первичную проверку. Причину устанавливает специалист.</p></li><li><b>Примите решение по заявке</b><p>Подтвердите проверку, оставьте под наблюдением или запишите результат. Система сохранит решение.</p></li></ol><div class="note">Прогнозируются диагностические события СМВУ. Для оценки реальных поломок нужны результаты проверок и ремонтов.</div></dialog>
+<dialog id="login-dialog"><form id="login-form"><button class="icon-button close-dialog" type="button" onclick="document.querySelector('#login-dialog').close()" aria-label="Закрыть">×</button><span class="eyebrow">РАБОЧЕЕ МЕСТО ОДС</span><h2>Вход в систему</h2><label for="login">Логин</label><input id="login" autocomplete="username" required><label for="password">Пароль</label><input id="password" type="password" autocomplete="current-password" required><p class="error" id="login-error" role="alert"></p><button class="btn accent" type="submit">Войти</button></form></dialog>
+<div class="toast" id="toast" role="status" hidden></div>
+<div class="tip" id="tip" role="tooltip" hidden></div>
+
+<script src="./demo.js"></script>
+<script src="./piket.js"></script>
+</body>
+</html>

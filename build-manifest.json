@@ -1,0 +1,23 @@
+{
+  "mode": "public synthetic prototype",
+  "files": [
+    ".nojekyll",
+    "404.html",
+    "DOCUMENTATION.md",
+    "MODEL_CARD.md",
+    "PIKET_LCT2026.pdf",
+    "PIKET_LCT2026.pptx",
+    "PITCH.md",
+    "app/demo.js",
+    "app/evaluation.json",
+    "app/index.html",
+    "app/piket.css",
+    "app/piket.js",
+    "app/replay-data.json",
+    "build-manifest.json",
+    "collector.png",
+    "documentation.html",
+    "index.html",
+    "landing.css"
+  ]
+}
