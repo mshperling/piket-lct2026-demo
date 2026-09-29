@@ -188,7 +188,7 @@
     "group_days": 62140,
     "groups": 26,
     "check_2026_h1_incidents": 22,
-    "status": "Imported. TabICLv2 reference completed without improvement; classical full-history ensemble evaluation pending. Published model unchanged.",
+    "status": "Completed. Full-history eight-model ensemble and TabICLv2 rank blend evaluated. Tradeoffs recorded; published model unchanged.",
     "source": "data/reconstructed_2019_2026/source_manifest.json"
   },
   "foundation_reference": {
@@ -244,5 +244,67 @@
     "contexts": 2,
     "rows_per_context": 3072,
     "internal_estimators_per_context": 4
+  },
+  "temporal_stack_full": {
+    "source": "reports/20260929/temporal_stack_full/report.json",
+    "model": "mean of eight full-history models",
+    "check": {
+      "tp": 11,
+      "fp": 14,
+      "fn": 11,
+      "alerts": 25,
+      "incidents": 22,
+      "precision": 0.44,
+      "recall": 0.5,
+      "f05": 0.4508196721311476,
+      "lead_median_days": 6.547847222222223,
+      "f1": 0.46808510638297873
+    },
+    "independent_test": false,
+    "promoted": false
+  },
+  "foundation_full": {
+    "source": "reports/20260929/foundation_full/report.json",
+    "selected": "rank_tabicl25",
+    "formula": "0.25 * CDF(TabICL_mean) + 0.75 * CDF(mean(full_eight, short_eight))",
+    "development": {
+      "tp": 14,
+      "fp": 16,
+      "fn": 19,
+      "alerts": 30,
+      "incidents": 33,
+      "precision": 0.4666666666666667,
+      "recall": 0.42424242424242425,
+      "f05": 0.4575163398692811,
+      "lead_median_days": 6.023703703703704,
+      "f1": 0.4444444444444445
+    },
+    "check": {
+      "tp": 10,
+      "fp": 10,
+      "fn": 12,
+      "alerts": 20,
+      "incidents": 22,
+      "precision": 0.5,
+      "recall": 0.45454545454545453,
+      "f05": 0.4901960784313725,
+      "lead_median_days": 7.918246527777778,
+      "f1": 0.47619047619047616
+    },
+    "published_reference": {
+      "tp": 9,
+      "fp": 7,
+      "fn": 13,
+      "alerts": 16,
+      "incidents": 22,
+      "precision": 0.5625,
+      "recall": 0.4090909090909091,
+      "f05": 0.5232558139534883,
+      "lead_median_days": 7.392384259259259,
+      "f1": 0.47368421052631576
+    },
+    "independent_test": false,
+    "promoted": false,
+    "interpretation": "One extra true alert and three extra false alerts versus published model. Slightly higher F1, lower precision; not a uniform improvement."
   }
 }
