@@ -7,9 +7,9 @@
 | Поле заявки | Ссылка |
 |---|---|
 | Репозиторий | https://github.com/Valle-ds/lct2026-moskollektor |
-| Документация | https://piket-lct2026.skygen.workers.dev/documentation |
-| Презентация | https://piket-lct2026.skygen.workers.dev/PIKET_LCT2026.pptx |
-| Прототип | https://piket-lct2026.skygen.workers.dev/app/ |
+| Документация | https://mshperling.github.io/piket-lct2026-demo/documentation.html |
+| Презентация | https://mshperling.github.io/piket-lct2026-demo/PIKET_LCT2026.pptx |
+| Прототип | https://mshperling.github.io/piket-lct2026-demo/app/ |
 | Дополнительные материалы | [Карточка модели](MODEL_CARD.md), [текст выступления](PITCH.md) |
 
 ## Что делает сервис
