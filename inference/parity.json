@@ -1,0 +1,46 @@
+{
+  "rows": 783,
+  "base_models": 8,
+  "max_absolute_error": 3.885780586188048e-16,
+  "tolerance": 1e-10,
+  "edge_cases": [
+    "unknown group",
+    "all numeric missing",
+    "all numeric zero"
+  ],
+  "models": [
+    {
+      "name": "legacy",
+      "max_absolute_error": 5.551115123125783e-17
+    },
+    {
+      "name": "lgb_base",
+      "max_absolute_error": 5.551115123125783e-17
+    },
+    {
+      "name": "lgb_full",
+      "max_absolute_error": 1.1102230246251565e-16
+    },
+    {
+      "name": "lgb_recent",
+      "max_absolute_error": 1.1102230246251565e-16
+    },
+    {
+      "name": "lgb_novel",
+      "max_absolute_error": 1.1102230246251565e-16
+    },
+    {
+      "name": "catboost",
+      "max_absolute_error": 1.6653345369377348e-16
+    },
+    {
+      "name": "extra_trees",
+      "max_absolute_error": 1.1102230246251565e-16
+    },
+    {
+      "name": "logistic",
+      "max_absolute_error": 3.885780586188048e-16
+    }
+  ],
+  "status": "passed"
+}

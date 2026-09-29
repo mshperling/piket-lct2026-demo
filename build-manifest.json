@@ -18,7 +18,17 @@
     "build-manifest.json",
     "collector.png",
     "documentation.html",
+    "forecast/forecast.css",
+    "forecast/forecast.js",
+    "forecast/index.html",
+    "forecast/worker.js",
     "index.html",
+    "inference/engine.js",
+    "inference/example.csv",
+    "inference/model.json",
+    "inference/parity.json",
+    "inference/schema.json",
+    "inference/template.csv",
     "landing.css"
   ]
 }
